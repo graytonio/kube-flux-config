@@ -1,9 +1,4 @@
 apiVersion: v1
-kind: Namespace
-metadata:
-  name: heimdall
----
-apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: heimdall-config-pvc
@@ -50,34 +45,3 @@ spec:
       - name: heimdall-config-vol
         persistentVolumeClaim:
           claimName: heimdall-config-pvc
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: heimdall
-  namespace: heimdall
-spec:
-  selector:
-    app: heimdall
-  type: ClusterIP
-  ports:
-  - name: http
-    port: 80
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: nginx
-  namespace: heimdall
-spec:
-  rules:
-    - host: "portal.conheart.com"
-      http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: heimdall
-              port:
-                number: 80
