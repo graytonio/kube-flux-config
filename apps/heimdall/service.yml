@@ -10,21 +10,3 @@ spec:
   ports:
   - name: http
     port: 80
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: nginx
-  namespace: heimdall
-spec:
-  rules:
-    - host: "portal.conheart.com"
-      http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: heimdall
-              port:
-                number: 80
